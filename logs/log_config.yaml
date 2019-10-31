@@ -1,0 +1,38 @@
+version: 1
+disable_existing_loggers: true
+
+formatters:
+  simple:
+    format: '%(asctime)s - %(message)s'
+    datefmt: '%d-%b-%y %H:%M:%S'
+handlers:
+  console:
+    level: INFO
+    class: logging.StreamHandler
+    formatter: simple
+    stream: ext://sys.stdout
+  recognition_file:
+    class: logging.handlers.RotatingFileHandler
+    formatter: simple
+    filename: logs/recognition.logs
+  communication_file:
+    class: logging.handlers.RotatingFileHandler
+    formatter: simple
+    filename: logs/communication.logs
+  bsutils_file:
+    class: logging.handlers.RotatingFileHandler
+    formatter: simple
+    filename: logs/bsutils.logs
+loggers:
+  recognition_logger:
+    level: INFO
+    handlers: [recognition_file]
+  serial_logger:
+    level: INFO
+    handlers: [communication_file]
+  bsutils_logger:
+    level: INFO
+    handlers: [bsutils_file]
+root:
+  level: ERROR
+  handlers: [console]
