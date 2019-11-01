@@ -111,6 +111,8 @@ class Communication:
 
             except KeyboardInterrupt:
                 logger.info('END PROGRAM')
+                break
+                exit()
 
     @staticmethod
     def code_cart(box, battery):

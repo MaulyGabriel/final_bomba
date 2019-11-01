@@ -126,5 +126,7 @@ class Recognition:
                     camera = self.start_camera()
 
                 except KeyboardInterrupt:
-                    camera.stop()
                     logger.info('END PROGRAM')
+                    camera.stop()
+                    break
+                    exit()
