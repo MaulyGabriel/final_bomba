@@ -1,4 +1,5 @@
 import os
+import sys
 import socket
 import serial
 from loguru import logger
@@ -10,34 +11,35 @@ class BoardSerial:
 
         self.rate = 9600
         self.time = 1
-        self.error = '[ERROR] _'
         self.OK = '$POK'
         self.SEND_OK = '$PNEUDOK'
 
     def open_connection(self, port):
 
         try:
-            os.system('sudo chmod -R 777 ' + port)
+
+            if sys.platform == 'linux':
+                os.system('sudo chmod -R 777 ' + port)
 
             board = serial.Serial(port, baudrate=self.rate, timeout=self.time)
 
             return board
 
         except serial.SerialException:
-            logger.error('INVALID ARGUMENT')
+            logger.error('Invalid argument')
             return None
 
     def send_message(self, connection, message):
 
         if connection is None:
-            logger.error('ERROR IN CONNECTION')
+            logger.error('Error in connection')
             return False
         else:
             message = str(message)
 
             message = self.digit_create(message.upper())
 
-            print(message)
+            # logger.debug(message)
 
             connection.write(message.upper().encode())
 
@@ -64,7 +66,7 @@ class BoardSerial:
         elif len_hexadecimal == 4:
             validated_information = hexadecimal[2:4]
         else:
-            pass
+            logger.info('Unable to generate checksum')
 
         validated_information = information + '*' + validated_information.upper() + '\r\n'
 
@@ -89,7 +91,6 @@ class Wifi(object):
 
     @staticmethod
     def open_connection(port, host):
-
         board = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         board.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         server = (host, port)
@@ -97,6 +98,9 @@ class Wifi(object):
         board.listen(1)
 
         return board.accept()
+
+
+
 
 
 

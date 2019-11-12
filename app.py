@@ -1,18 +1,19 @@
-import multiprocessing as mp
 from communication import Communication
 from recognition import Recognition
 from loguru import logger
+import multiprocessing as mp
 
 
 class App:
 
     def __init__(self):
-        self.actions = mp.Array('i', [1])
+        self.actions = mp.Array('i', [0])
         self.box = mp.Array('i', [0])
         self.battery = mp.Array('i', [0, 0, 0, 0, 0, 0, ])
         self.lat_long_actual = mp.Array('d', [0.0, 0.0])
-        self.c = Communication(port='/dev/ttyUSB0')
-        self.r = Recognition(camera=0) # 'rtsp://192.168.1.11:554/live/0/MAIN'
+        self.c = Communication(port='/dev/SERIAL_PORT')
+        self.r = Recognition(camera=0)  # 'rtsp://192.168.1.11:554/live/0/MAIN')
+        # camera intelbras 'rtsp://madruga:aaa123456@@192.168.1.11:554'
 
     def run(self):
         c_service = mp.Process(target=self.c.run, args=(self.actions, self.battery, self.lat_long_actual, self.box))

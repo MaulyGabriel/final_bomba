@@ -1,5 +1,5 @@
-from bsutils.board import BoardSerial
 from time import strftime, localtime, sleep
+from bsutils.board import BoardSerial
 from loguru import logger
 import os
 
@@ -22,7 +22,7 @@ class Communication:
 
     def run(self, actions, battery, lat_long_actual, box):
 
-        logger.info('start communication')
+        logger.info('Start communication')
 
         init_hour = self.time_hour()
         init_minute = self.time_minute(init_hour)
@@ -43,6 +43,8 @@ class Communication:
 
                         self.board.send_message(connection=self.connection, message=self.board.SEND_OK)
 
+                        logger.debug(message_board)
+
                         message_board = message_board.split(',')
 
                         # basculamento
@@ -56,8 +58,8 @@ class Communication:
                             if code is None:
                                 self.board.send_message(connection=self.connection, message=self.NOT_FOUND)
                             else:
-                                cart = '$PNEUD,G,1,{}'.format(code)
-                                self.board.send_message(connection=self.connection, message=cart)
+                                self.board.send_message(connection=self.connection,
+                                                        message='$PNEUD,G,1,{}'.format(code))
 
                         if message_board[2] == '2':
 
@@ -79,7 +81,7 @@ class Communication:
                                     reboot = actual_minute - init_minute
 
                                     if reboot >= self.reboot:
-                                        logger.info('REBOOT SYSTEM')
+                                        logger.info('Reboot system')
                                         sleep(0.8)
                                         os.system('sudo reboot')
 
@@ -96,23 +98,18 @@ class Communication:
                                             array=[float(message_board[4]), float(message_board[5])])
 
                                     except ValueError:
-                                        logger.error('INVALID GPS')
+                                        logger.error('Invalid GPS')
 
             except UnicodeError:
-                logger.error('UNICODE ERROR')
+                logger.error('Unicode error')
 
             except IOError:
                 self.close_connection()
-                logger.error('SERIAL ERROR')
+                logger.error('Serial error')
 
             except AttributeError:
                 self.close_connection()
-                logger.error('INVALID ARGUMENT')
-
-            except KeyboardInterrupt:
-                logger.info('END PROGRAM')
-                break
-                exit()
+                logger.error('Invalid argument')
 
     @staticmethod
     def code_cart(box, battery):

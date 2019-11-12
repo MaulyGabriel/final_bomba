@@ -1,23 +1,24 @@
-from bsutils.board import BoardSerial
-import logging
-import yaml
+import socket
 
 
-class Test:
+class Wifi(object):
 
     def __init__(self):
-        self.board = BoardSerial()
-
-    def run(self):
         pass
 
-    def setup_logger(cls):
-        with open('app/logs/log_config.yaml') as f:
-            config = yaml.safe_load(f.read())
+    @staticmethod
+    def open_connection(port, host):
+        board = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        board.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        server = (host, port)
+        board.bind(server)
+        board.listen(1)
 
-        logging.config.dictConfig(config)
+        return board.accept()
 
 
 if __name__ == '__main__':
-    t = Test()
-    t.run()
+
+    w = Wifi()
+    con = w.open_connection(9090, '192.168.45.84')
+    print(con)
