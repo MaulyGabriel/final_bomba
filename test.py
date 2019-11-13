@@ -1,24 +1,29 @@
-import socket
+from loguru import logger
 
 
-class Wifi(object):
+class Test(object):
 
     def __init__(self):
-        pass
+        self.battery = [0, 0, 20511, 20512, 20511, 20522]
+        self.box = 2
 
-    @staticmethod
-    def open_connection(port, host):
-        board = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        board.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        server = (host, port)
-        board.bind(server)
-        board.listen(1)
+    def code_cart(self):
 
-        return board.accept()
+        code = str(self.battery[-1])
+        if code != '0':
+            seq = code[-1]
+
+            if seq == '1' and self.box == 2:
+                if self.battery[-2] != 0:
+                    code = str(self.battery[-2])
+
+            code = code[:-1]
+            logger.success('Caixote {} foi basculado na carreta {}'.format(self.box, code))
+            return code[:]
+        else:
+            return None
 
 
 if __name__ == '__main__':
-
-    w = Wifi()
-    con = w.open_connection(9090, '192.168.45.84')
-    print(con)
+    t = Test()
+    t.code_cart()

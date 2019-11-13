@@ -58,6 +58,8 @@ class Communication:
                             if code is None:
                                 self.board.send_message(connection=self.connection, message=self.NOT_FOUND)
                             else:
+                                logger.success('Caixote {}, basculou na carreta: {} '.format(box[0], code))
+
                                 self.board.send_message(connection=self.connection,
                                                         message='$PNEUD,G,1,{}'.format(code))
 
@@ -118,7 +120,7 @@ class Communication:
         if code != '0':
             seq = code[-1]
 
-            if seq == '1' and box == '2':
+            if seq == '1' and box == 2:
                 if battery[-2] != 0:
                     code = str(battery[-2])
 

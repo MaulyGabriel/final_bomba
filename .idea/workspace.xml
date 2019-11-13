@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6032cdbc-cfde-4d53-a43c-3eb58b96f65d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/alias.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/app.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/communication.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/index.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/recognition.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/mauly.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/mauly.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bsutils/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/bsutils/board.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bsutils/docs/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/bsutils/docs/index.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bsutils/mkdocs.yml" beforeDir="false" afterPath="$PROJECT_DIR$/bsutils/mkdocs.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/communication.py" beforeDir="false" afterPath="$PROJECT_DIR$/communication.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/version.txt" beforeDir="false" afterPath="$PROJECT_DIR$/version.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -132,11 +123,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/bsutils/board.py</url>
-          <line>20</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/recognition.py</url>
           <line>121</line>
           <option name="timeStamp" value="5" />
@@ -145,6 +131,16 @@
           <url>file://$PROJECT_DIR$/recognition.py</url>
           <line>77</line>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/communication.py</url>
+          <line>122</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test.py</url>
+          <line>9</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
