@@ -38,15 +38,15 @@ Classe responsável pela comunicação serial.
 
 Construtor, responsável por iniciar algumas variáveis da classe (construtor):
 
+```python
+def __init__(self):
 
-	    def __init__(self):
-
-	        self.rate = 9600
-	        self.time = 1
-	        self.error = '[ERROR] _'
-	        self.OK = '$POK'
-	        self.SEND_OK = '$PNEUDOK'
-
+    self.rate = 9600
+    self.time = 1
+    self.error = '[ERROR] _'
+    self.OK = '$POK'
+    self.SEND_OK = '$PNEUDOK'
+```
 
 
 
@@ -54,94 +54,95 @@ Construtor, responsável por iniciar algumas variáveis da classe (construtor):
 
 Responsável por aplicar permissão na porta serial e abrir a conexão, espera o nome da porta como parâmetro.
 
+```python
+def open_connection(self, port):
 
-	    def open_connection(self, port):
+    try:
 
-	        try:
+        os.system('sudo chmod -R 777 ' + port)
 
-	            os.system('sudo chmod -R 777 ' + port)
+        board = serial.Serial(port, baudrate=self.rate, timeout=self.time)
 
-	            board = serial.Serial(port, baudrate=self.rate, timeout=self.time)
+        return board
 
-	            return board
+    except serial.SerialException:
+        print(self.error + ' check your parameters and your permission')
 
-	        except serial.SerialException:
-	            print(self.error + ' check your parameters and your permission')
+        return None
+```
 
-	            return None
 
 #### send_message()
 
 Responsável por enviar uma mensagem na porta serial, espera a conexão e a mensagem como parâmetro.
 
+```python
+def send_message(self, connection, message):
 
-	    def send_message(self, connection, message):
+    if connection is None:
+        print(self.error + ' error in connection')
 
-	        if connection is None:
-	            print(self.error + ' error in connection')
+        return False
+    else:
+        message = str(message)
 
-	            return False
-	        else:
-	            message = str(message)
+        message = self.create_digit(message.upper())
 
-	            message = self.create_digit(message.upper())
+        connection.write(message.upper().encode())
 
-	            connection.write(message.upper().encode())
-
-	            return True
-
-
+        return True
+```
 
 
 #### digit_create()
 
 Responsável por criar o checksum da mensagem a ser enviada pela porta serial, espera a mensagem como parâmetro.
 
+```python
+def digit_create(self, information):
 
-    def digit_create(self, information):
+    information = information.upper()
 
-        information = information.upper()
+    information += ','
 
-        information += ','
+    verify_digit = 0
 
-        verify_digit = 0
+    for digit in str(information):
+        verify_digit ^= ord(digit)
 
-        for digit in str(information):
-            verify_digit ^= ord(digit)
+    validated_information = ''
+    hexadecimal = hex(verify_digit)
+    len_hexadecimal = len(hexadecimal)
 
-        validated_information = ''
-        hexadecimal = hex(verify_digit)
-        len_hexadecimal = len(hexadecimal)
+    if len_hexadecimal == 3:
+        validated_information = '0' + hexadecimal[2]
+    elif len_hexadecimal == 4:
+        validated_information = hexadecimal[2:4]
+    else:
+        print(self.error + ' unable to generate validation')
 
-        if len_hexadecimal == 3:
-            validated_information = '0' + hexadecimal[2]
-        elif len_hexadecimal == 4:
-            validated_information = hexadecimal[2:4]
-        else:
-            print(self.error + ' unable to generate validation')
+    validated_information = information + '*' + validated_information.upper() + '\r\n'
 
-        validated_information = information + '*' + validated_information.upper() + '\r\n'
-
-        return validated_information.upper()
-
+    return validated_information.upper()
+```
 
 #### digit_verify()
 
 
 Responsável por validar o checksum da mensagem recebida pela porta serial, espera a mensagem como parâmetro.
 
+```python
+def digit_verify(self, information):
 
-	  def digit_verify(self, information):
-
-        position = information.find('*')
-
-        result = self.create_digit(information[:position - 1])
-
-        if information[position + 1:] == result[position + 1:]:
-            return True
-        else:
-            return False
-
+    position = information.find('*')
+    
+    result = self.create_digit(information[:position - 1])
+    
+    if information[position + 1:] == result[position + 1:]:
+        return True
+    else:
+        return False
+```
 
 ### Wifi
 
@@ -159,17 +160,18 @@ Responsável por iniciar algumas variáveis da classe (no momento nenhuma variá
 
 Responsável por abrir a conexão, espera a porta e o endereço do servidor como parâmetro.
 
-	@staticmethod
-    def open_connection(port, host):
+```python
+@staticmethod
+def open_connection(port, host):
 
-        board = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        board.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        server = (host, port)
-        board.bind(server)
-        board.listen(1)
+    board = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    board.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    server = (host, port)
+    board.bind(server)
+    board.listen(1)
 
-        return board.accept()
-
+    return board.accept()
+```
 
 ## Exemplos
 
@@ -178,33 +180,36 @@ Nesta seção será apresentado algumas aplicações rotineiras com o pacote <b>
 
 
 ### Enviando mensagem pela porta serial (pataforma linux):
-	
-	# importacao da biblioteca
-	from bsutils.board import Serial
+
+```python	
+# importacao da biblioteca
+from bsutils.board import Serial
 
 
-	def example():
+def example():
 
-		# objeto da classe
-		s = Serial()
+    # objeto da classe
+    s = Serial()
 
-		# abrindo a conexao
-		connection = s.open_connection(port='/dev/ttyUSB0')
+    # abrindo a conexao
+    connection = s.open_connection(port='/dev/ttyUSB0')
 
-		# enviando uma mensagem
-		s.send_message(connection, 'hello world')
+    # enviando uma mensagem
+    s.send_message(connection, 'hello world')
 
-		# fechando a conexao
-		connection.close()
+    # fechando a conexao
+    connection.close()
 
 
-	if __name__ == '__main__':
+if __name__ == '__main__':
 
-		example()
+    example()
+```
 
 
 ### Realizando a leitura na porta serial
-    
+
+```python  
     # importação da lib
     from bsutils.board import Serial
     
@@ -241,4 +246,4 @@ Nesta seção será apresentado algumas aplicações rotineiras com o pacote <b>
         
         example()
         
-        
+```     

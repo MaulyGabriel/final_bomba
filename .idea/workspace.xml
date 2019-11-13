@@ -2,12 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6032cdbc-cfde-4d53-a43c-3eb58b96f65d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/docs/alias.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/app.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/communication.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/index.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/recognition.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/mauly.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/mauly.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bsutils/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/bsutils/board.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bsutils/docs/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/bsutils/docs/index.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bsutils/mkdocs.yml" beforeDir="false" afterPath="$PROJECT_DIR$/bsutils/mkdocs.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/communication.py" beforeDir="false" afterPath="$PROJECT_DIR$/communication.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/recognition.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/version.txt" beforeDir="false" afterPath="$PROJECT_DIR$/version.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,7 +33,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1S1V0nyofAkNOor9Vc8HalhzIln" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -126,6 +135,16 @@
           <url>file://$PROJECT_DIR$/bsutils/board.py</url>
           <line>20</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/recognition.py</url>
+          <line>121</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/recognition.py</url>
+          <line>77</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

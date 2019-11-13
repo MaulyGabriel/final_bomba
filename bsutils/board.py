@@ -19,7 +19,8 @@ class BoardSerial:
         try:
 
             if sys.platform == 'linux':
-                os.system('sudo chmod -R 777 ' + port)
+                pass
+                # os.system('sudo chmod -R 777 ' + port)
 
             board = serial.Serial(port, baudrate=self.rate, timeout=self.time)
 

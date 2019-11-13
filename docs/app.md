@@ -1,3 +1,12 @@
+# App
+
+Classe App, responsável pela execução do nosso algoritmo.
+
+
+
+```python  
+
+# importações necessárias
 from communication import Communication
 from recognition import Recognition
 from loguru import logger
@@ -5,9 +14,12 @@ import multiprocessing as mp
 
 
 class App:
-
+    
     def __init__(self, camera):
-
+        '''
+         Nosso construtor, responsável em iniciar nossas configurações 
+         de comunicação, câmera e ações do algoritmo
+        '''
         self.actions = mp.Array('i', [1])
 
         self.cameras = {
@@ -23,6 +35,9 @@ class App:
         self.r = Recognition(camera=self.cameras[camera])
 
     def run(self):
+        '''
+        Responsável por iniciar nossos serviços
+        '''
         c_service = mp.Process(target=self.c.run, args=(self.actions, self.battery, self.lat_long_actual, self.box))
         r_service = mp.Process(target=self.r.run, args=(self.actions, self.battery, self.lat_long_actual))
 
@@ -34,6 +49,11 @@ class App:
 
 
 if __name__ == '__main__':
+    '''
+     Aqui iniciamos a execução do nosso algoritmo
+    '''
     logger.info('Start services ...')
     app = App(camera='usb')
     app.run()
+
+``` 

@@ -1,3 +1,8 @@
+# Communication
+
+Classe Communication, responsável por realizar a comunicação com a porta serial.
+
+``` python
 from time import strftime, localtime, sleep
 from bsutils.board import BoardSerial
 from loguru import logger
@@ -6,6 +11,9 @@ import os
 
 class Communication:
     def __init__(self, port):
+        '''
+        Construtor da classe
+        '''
         self.board = BoardSerial()
         self.port = port
         self.connection = self.board.open_connection(port=self.port)
@@ -18,10 +26,15 @@ class Communication:
         self.preview_state = 0
 
     def close_connection(self):
+        '''
+        Fecha a conexao
+        '''
         self.connection = None
 
     def run(self, actions, battery, lat_long_actual, box):
-
+        '''
+        Responsável por enviar e receber mensagens da porta serial
+        '''
         logger.info('Start communication')
 
         init_hour = self.time_hour()
@@ -113,7 +126,9 @@ class Communication:
 
     @staticmethod
     def code_cart(box, battery):
-
+        '''
+        Responsável por identificar em qual carreta o caixote basculou
+        '''
         code = str(battery[-1])
         if code != '0':
             seq = code[-1]
@@ -130,6 +145,9 @@ class Communication:
 
     @staticmethod
     def convert_coord(array):
+        '''
+        Realiza a conversão das coordenadas
+        '''
         output = [0, 0]
 
         for idx, n in enumerate(array):
@@ -152,3 +170,4 @@ class Communication:
         minutes = (int(hour[0]) * 60) + int(hour[1])
 
         return minutes
+```
