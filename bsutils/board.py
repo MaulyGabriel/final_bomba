@@ -19,8 +19,7 @@ class BoardSerial:
         try:
 
             if sys.platform == 'linux':
-                pass
-                # os.system('sudo chmod -R 777 ' + port)
+                os.system('sudo chmod -R 777 ' + port)
 
             board = serial.Serial(port, baudrate=self.rate, timeout=self.time)
 
@@ -39,8 +38,6 @@ class BoardSerial:
             message = str(message)
 
             message = self.digit_create(message.upper())
-
-            # logger.debug(message)
 
             connection.write(message.upper().encode())
 

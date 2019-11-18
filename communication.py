@@ -22,7 +22,7 @@ class Communication:
 
     def run(self, actions, battery, lat_long_actual, box):
 
-        logger.info('Start communication')
+        logger.success('Start communication')
 
         init_hour = self.time_hour()
         init_minute = self.time_minute(init_hour)
@@ -43,13 +43,13 @@ class Communication:
 
                         self.board.send_message(connection=self.connection, message=self.board.SEND_OK)
 
-                        logger.debug(message_board)
-
                         message_board = message_board.split(',')
 
                         # basculamento
 
                         if message_board[2] == '1':
+
+                            logger.debug('{}'.format(message_board))
 
                             box[0] = int(message_board[3])
 

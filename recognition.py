@@ -42,7 +42,7 @@ class Recognition:
 
     def run(self, actions, battery, lat_long_actual):
 
-        logger.info('Recognition start')
+        logger.success('Recognition start')
 
         camera = self.start_camera()
 
@@ -57,7 +57,7 @@ class Recognition:
                     frame = camera.read()
 
                     if frame is None:
-                        logger.debug('CAMERA INVALID')
+                        logger.error('Camera invalid')
                     else:
 
                         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -70,9 +70,6 @@ class Recognition:
                             if self.CODE is None or self.CODE == '':
                                 logger.info('Qr Code is none')
                             else:
-
-                                logger.info(self.CODE)
-
                                 try:
                                     self.CODE = self.CODE.split('-')
                                     self.READ_CODE = int(self.CODE[0] + self.CODE[1])
@@ -121,12 +118,13 @@ class Recognition:
 
                         self.CODE = ''
 
+                        cv2.imshow('View', frame)
+
+                        if cv2.waitKey(1) & 0xFF == ord('q'):
+                            break
+
                 except AttributeError:
                     logger.error('Camera reconnected')
                     camera.stop()
                     sleep(1)
                     camera = self.start_camera()
-
-
-
-
