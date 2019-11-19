@@ -9,13 +9,14 @@ import cv2
 
 class Recognition:
 
-    def __init__(self, camera):
+    def __init__(self, camera, picamera):
         self.LAT_LONG = [0.0, 0.0, 0.0, 0.0]
         self.LIMIT = 6
         self.DISTANCE = 15
         self.SIZE = 480
         self.CODE, self.READ_CODE = '', ''
         self.CAMERA = camera
+        self.picamera = picamera
 
     def update_location(self, lat_long_actual):
 
@@ -30,7 +31,13 @@ class Recognition:
 
     def start_camera(self):
 
-        return VideoStream(src=self.CAMERA).start()
+        if self.picamera == True:
+
+            return VideoStream(usePiCamera=True, resolution=(1920, 1088)).start()
+
+        else:
+
+            return VideoStream(src=self.CAMERA).start()
 
     def read_qr(self, frame):
 
@@ -122,6 +129,7 @@ class Recognition:
 
                         if cv2.waitKey(1) & 0xFF == ord('q'):
                             break
+                         
 
                 except AttributeError:
                     logger.error('Camera reconnected')

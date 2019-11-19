@@ -13,14 +13,15 @@ class App:
         self.cameras = {
             'usb': 0,
             'china': 'rtsp://192.168.1.11:554/live/0/MAIN',
-            'intelbras': 'rtsp://madruga:aaa123456@@192.168.1.11:554'
+            'intelbras': 'rtsp://madruga:aaa123456@@192.168.1.11:554',
+            'picamera': True
         }
 
         self.box = mp.Array('i', [0])
         self.battery = mp.Array('i', [0, 0, 0, 0, 0, 0, ])
         self.lat_long_actual = mp.Array('d', [0.0, 0.0])
         self.c = Communication(port='/dev/SERIAL_PORT')
-        self.r = Recognition(camera=self.cameras[camera])
+        self.r = Recognition(camera=self.cameras[camera], picamera=True)
 
     def run(self):
         c_service = mp.Process(target=self.c.run, args=(self.actions, self.battery, self.lat_long_actual, self.box))

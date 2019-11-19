@@ -60,8 +60,16 @@ class Communication:
                             else:
                                 logger.success('Caixote {}, basculou na carreta: {} '.format(box[0], code))
 
-                                self.board.send_message(connection=self.connection,
-                                                        message='$PNEUD,G,1,{}'.format(code))
+                                change = 1
+
+                                while change <= 5:
+                                    
+                                    self.board.send_message(connection=self.connection,
+                                                            message='$PNEUD,G,1,{}'.format(code))
+
+                                    logger.debug('Send: {}'.format(change))
+                                    sleep(0.5)
+                                    change += 1
 
                         if message_board[2] == '2':
 
