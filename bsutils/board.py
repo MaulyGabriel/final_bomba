@@ -1,6 +1,5 @@
 import os
 import sys
-import socket
 import serial
 from loguru import logger
 
@@ -82,20 +81,6 @@ class BoardSerial:
             return False
 
 
-class Wifi(object):
-
-    def __init__(self):
-        pass
-
-    @staticmethod
-    def open_connection(port, host):
-        board = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        board.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        server = (host, port)
-        board.bind(server)
-        board.listen(1)
-
-        return board.accept()
 
 
 

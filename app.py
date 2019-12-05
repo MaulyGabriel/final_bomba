@@ -14,24 +14,33 @@ class App:
             'usb': 0,
             'china': 'rtsp://192.168.1.11:554/live/0/MAIN',
             'intelbras': 'rtsp://madruga:aaa123456@@192.168.1.11:554',
-            'picamera': True
         }
 
         self.box = mp.Array('i', [0])
         self.battery = mp.Array('i', [0, 0, 0, 0, 0, 0, ])
         self.lat_long_actual = mp.Array('d', [0.0, 0.0])
         self.c = Communication(port='/dev/SERIAL_PORT')
-        self.r = Recognition(camera=self.cameras[camera], picamera=True)
+        self.r = Recognition(camera=self.cameras[camera], camera_rasp=False, show_image=True)
 
     def run(self):
+
         c_service = mp.Process(target=self.c.run, args=(self.actions, self.battery, self.lat_long_actual, self.box))
         r_service = mp.Process(target=self.r.run, args=(self.actions, self.battery, self.lat_long_actual))
 
-        c_service.start()
-        r_service.start()
+        try:
 
-        c_service.join()
-        r_service.join()
+            c_service.start()
+            r_service.start()
+
+            c_service.join()
+            r_service.join()
+
+        except KeyboardInterrupt:
+
+            c_service.terminate()
+            r_service.terminate()
+
+            logger.info('End services')
 
 
 if __name__ == '__main__':

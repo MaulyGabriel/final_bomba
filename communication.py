@@ -57,19 +57,20 @@ class Communication:
 
                             if code is None:
                                 self.board.send_message(connection=self.connection, message=self.NOT_FOUND)
+                                logger.info('Not identified :(')
                             else:
                                 logger.success('Caixote {}, basculou na carreta: {} '.format(box[0], code))
 
-                                change = 1
+                                attempts = 1
 
-                                while change <= 5:
+                                while attempts <= 5:
                                     
                                     self.board.send_message(connection=self.connection,
                                                             message='$PNEUD,G,1,{}'.format(code))
 
-                                    logger.debug('Send: {}'.format(change))
+                                    logger.debug('Send: {}'.format(attempts))
                                     sleep(0.5)
-                                    change += 1
+                                    attempts += 1
 
                         if message_board[2] == '2':
 

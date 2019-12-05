@@ -5,18 +5,21 @@ from time import sleep
 import imutils
 import math
 import cv2
+from vidstab import VidStab
 
 
 class Recognition:
 
-    def __init__(self, camera, picamera):
+    def __init__(self, camera, camera_rasp, show_image):
         self.LAT_LONG = [0.0, 0.0, 0.0, 0.0]
         self.LIMIT = 6
         self.DISTANCE = 15
         self.SIZE = 480
         self.CODE, self.READ_CODE = '', ''
         self.CAMERA = camera
-        self.picamera = picamera
+        self.show_image = show_image
+        self.camera_rasp = camera_rasp
+        self.stabilizer = VidStab()
 
     def update_location(self, lat_long_actual):
 
@@ -31,7 +34,7 @@ class Recognition:
 
     def start_camera(self):
 
-        if self.picamera == True:
+        if self.camera_rasp is True:
 
             return VideoStream(usePiCamera=True, resolution=(1920, 1088)).start()
 
@@ -125,11 +128,11 @@ class Recognition:
 
                         self.CODE = ''
 
-                        cv2.imshow('View', frame)
+                        if self.show_image is True:
+                            cv2.imshow('Solinftec', frame)
 
-                        if cv2.waitKey(1) & 0xFF == ord('q'):
-                            break
-                         
+                            if cv2.waitKey(1) & 0xFF == ord('q'):
+                                break
 
                 except AttributeError:
                     logger.error('Camera reconnected')
