@@ -1,1 +1,5 @@
-# Leitor de Qr Code aprimorado
+# Computer Vision Project
+
+Qr Code recognition.
+
+Python: 3.6
