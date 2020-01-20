@@ -2,6 +2,7 @@ from imutils.video import VideoStream
 from loguru import logger
 from pyzbar import pyzbar
 from time import sleep
+import numpy as np
 import imutils
 import math
 import cv2
